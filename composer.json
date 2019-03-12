@@ -1,0 +1,45 @@
+{
+	"name" : "diverproject/diamond-annotation",
+	"type" : "library",
+	"description" : "Base library to parse PHPDoc annotations like Java and customize.",
+	"homepage" : "https://diamond.diverproject.org/annotation",
+	"minimum-stability" : "alpha",
+	"license" : "MIT",
+	"keywords" : [
+		"diamond",
+		"annotation",
+		"doc"
+	],
+	"autoload" : {
+		"psr-4" : {
+			"" : "src"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"" : "src",
+			"test\\" : "test"
+		}
+	},
+	"require" : {
+		"php" : ">=7.2",
+		"diverproject/diamond-lang" : "dev-master"
+	},
+	"require-dev" : {
+		"php" : ">=7.2",
+		"phpunit/phpunit" : "7.4.*"
+	},
+	"support" : {
+		"email" : "support.diamond@diverproject.org",
+		"forum" : "https://diamond.diverproject.org/forum",
+		"wiki" : "https://diamond.diverproject.org/wiki",
+		"source" : "https://github.com/diverproject/diamond-annotation"
+	},
+	"authors" : [{
+			"name" : "Andrew Mello da Silva",
+			"email" : "andrew.silva@diverproject.org",
+			"homepage" : "https://driw.diverproject.org",
+			"role" : "Developer"
+		}
+	]
+}
