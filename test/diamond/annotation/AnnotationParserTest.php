@@ -2,10 +2,11 @@
 
 namespace test\diamond\annotation;
 
+use DateTime;
 use diamond\annotation\AnnotationException;
+use diamond\annotation\AnnotationMethod;
 use diamond\annotation\AnnotationParser;
 use diamond\annotation\AnnotationProperty;
-use diamond\annotation\AnnotationMethod;
 use diamond\annotation\CustomAnnotation;
 use diamond\annotation\LinkAnnotation;
 use diamond\annotation\ParameterAnnotation;
@@ -13,7 +14,6 @@ use diamond\annotation\ReturnAnnotation;
 use diamond\annotation\SeeAnnotation;
 use diamond\annotation\ThrowsAnnotation;
 use diamond\annotation\VarAnnotation;
-use DateTime;
 
 class AnnotationParserTest extends DiamondCollectionTest
 {
@@ -217,8 +217,9 @@ class AnnotationParserTest extends DiamondCollectionTest
 		$this->assertFalse(AnnotationParser::isNativeType(AnnotationParser::getFirstMultiType($types)));
 
 		$this->assertTrue(AnnotationParser::hasMultiTypesNull($types));
-		$types = explode('|', $types);
-		unset($types[array_search('NULL', $types)]);
+		$types = AnnotationParser::getMultiTypes($types);
+		if (($key = array_search('null', $types)) !== false) unset($types[$key]);
+		if (($key = array_search('NULL', $types)) !== false) unset($types[$key]);
 		$types = implode('|', $types);
 		$this->assertFalse(AnnotationParser::hasMultiTypesNull($types));
 	}

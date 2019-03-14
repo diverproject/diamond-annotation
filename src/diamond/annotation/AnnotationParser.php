@@ -2,17 +2,17 @@
 
 namespace diamond\annotation;
 
+use diamond\lang\StringParser;
+use diamond\lang\utils\GlobalFunctions;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
-use diamond\lang\StringParser;
-use diamond\lang\utils\GlobalFunctions;
 
 GlobalFunctions::load();
 
 class AnnotationParser
 {
-	public const NATIVE_TYPES = ['bool', 'int', 'float', 'string', 'array', 'resource', 'NULL'];
+	public const NATIVE_TYPES = ['bool', 'int', 'integer', 'float', 'double', 'string', 'array', 'resource', 'null'];
 
 	private static $nativeAnnotations = [
 		'author' => AuthorAnnotation::class,
@@ -236,7 +236,7 @@ class AnnotationParser
 		$array = explode('|', $types);
 
 		foreacH ($array as &$type)
-			if ($type{0} === '\\')
+			if (strlen($type) > 0 && $type{0} === '\\')
 				$type = substr($type, 1);
 
 		return $array;
@@ -245,13 +245,13 @@ class AnnotationParser
 	public static function hasMultiTypesNull(string $types): bool
 	{
 		$types = self::getMultiTypes($types);
-		return array_search('NULL', $types) !== false;
+		return in_array('null', $types) || in_array('NULL', $types);
 	}
 
 	public static function getFirstMultiType(string $types, bool $onlyClasses = true): ?string
 	{
 		foreach (self::getMultiTypes($types) as $class_name)
-			if ($class_name !== 'NULL')
+			if (strlen($class_name) > 0 && $class_name !== 'NULL')
 				if ((!$onlyClasses && self::isNativeType($class_name)) || ($class_name = self::classnameOf($class_name)) !== null)
 					return $class_name;
 
@@ -260,7 +260,7 @@ class AnnotationParser
 
 	public static function isNativeType(string $type): bool
 	{
-		return array_search($type, self::NATIVE_TYPES) !== false;
+		return array_search(strtolower($type), self::NATIVE_TYPES) !== false;
 	}
 }
 

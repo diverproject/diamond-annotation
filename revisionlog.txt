@@ -29,6 +29,14 @@
 // https://semver.org/spec/v2.0.0.html
 //== Revisions =========================================================
 
+[2019-03-14]
+
+0.1.0.2
+- Include empty (undefined) types to be considered on parser.
+- Fixed integer type value on NATIVE_TYPES of AnnotationParser.
+- VarAnnotation will be trate undefined types as object.
+- Adjust AnnotationParserTest to accept NULL and null data type test.
+
 [2019-03-12]
 
 0.1.0.1

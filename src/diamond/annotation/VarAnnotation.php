@@ -61,7 +61,7 @@ class VarAnnotation extends AbstractAnnotation
 			$data = substr($data, 0, $strpos);
 		}
 
-		$this->setType(AnnotationParser::getFirstMultiType($data, false));
+		$this->setType(nvl(AnnotationParser::getFirstMultiType($data, false), 'object'));
 		$this->setAcceptNull(AnnotationParser::hasMultiTypesNull($data));
 	}
  }
